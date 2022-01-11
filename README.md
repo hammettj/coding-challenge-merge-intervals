@@ -56,6 +56,12 @@ After you build the docker image you can run it with the following command
 docker run --rm merge-intervals:latest "[25,30]" "[2,19]" "[14,23]" "[4,8]"
 ```
 
+It's also possible to extract the executable to your host system by running
+
+```shell
+docker cp $(docker create merge-intervals:latest):/app/merge-intervals .
+```
+
 ### JVM Build 
 #### Requirements
 * JDK 17
