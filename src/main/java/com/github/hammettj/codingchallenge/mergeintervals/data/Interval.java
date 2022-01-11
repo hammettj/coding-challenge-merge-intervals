@@ -1,6 +1,8 @@
 package com.github.hammettj.codingchallenge.mergeintervals.data;
 
 import static java.lang.Integer.compare;
+import static java.lang.Math.max;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Representation of an interval.
@@ -23,6 +25,27 @@ public record Interval(int begin, int end) implements Comparable<Interval> {
         if (begin > end) {
             throw new IllegalArgumentException("begin must be less than end");
         }
+    }
+
+    /**
+     * Checks if this interval overlaps with the given interval.
+     *
+     * @param interval the interval to check for an intersection.
+     * @return true if the both intervals overlap, false otherwise
+     */
+    public boolean overlaps(final Interval interval) {
+        return begin <= requireNonNull(interval).end;
+    }
+
+    /**
+     * Expands the end of this interval if necessary and returns a new instance, leaving this interval unchanged.
+     *
+     * @param interval the interval up to which to expand (if necessary)
+     * @return a new instance with the end probably expanded
+     */
+    public Interval expandEndTo(final Interval interval) {
+        requireNonNull(interval);
+        return new Interval(begin, max(end, interval.end()));
     }
 
     @Override

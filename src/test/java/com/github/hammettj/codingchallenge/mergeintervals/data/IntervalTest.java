@@ -34,4 +34,54 @@ class IntervalTest {
         assertThat(intervals.stream().sorted())
             .containsExactly(interval2, interval4, interval3, interval1);
     }
+
+    @Test
+    void expandingRequiresNonNullInterval() {
+        final Interval interval = new Interval(3, 7);
+        assertThatThrownBy(() -> interval.expandEndTo(null))
+            .isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
+    void expandingReturnsNewExpandedInterval() {
+        final Interval left = new Interval(3, 7);
+        final Interval right = new Interval(5, 11);
+
+        assertThat(left.expandEndTo(right))
+            .isEqualTo(new Interval(3, 11));
+    }
+
+    @Test
+    void checkingOverlapRequiresNonNullInterval() {
+        final Interval interval = new Interval(3, 7);
+        assertThatThrownBy(() -> interval.overlaps(null))
+            .isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
+    void intervalsOverlapWhenTheyIntersect() {
+        final Interval left = new Interval(3, 7);
+        final Interval right = new Interval(6, 10);
+
+        assertThat(right.overlaps(left))
+            .isTrue();
+    }
+
+    @Test
+    void intervalsOverlapWhenTheyTouch() {
+        final Interval left = new Interval(1, 5);
+        final Interval right = new Interval(5, 10);
+
+        assertThat(right.overlaps(left))
+            .isTrue();
+    }
+
+    @Test
+    void intervalsDoNotOverlapWhenTheyDontIntersect() {
+        final Interval left = new Interval(1, 5);
+        final Interval right = new Interval(10, 15);
+
+        assertThat(right.overlaps(left))
+            .isFalse();
+    }
 }

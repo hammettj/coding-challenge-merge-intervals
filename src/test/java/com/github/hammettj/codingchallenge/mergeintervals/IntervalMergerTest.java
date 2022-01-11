@@ -5,11 +5,25 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static java.util.Collections.emptySet;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class IntervalMergerTest {
 
     private final IntervalMerger intervalMerger = new IntervalMerger();
+
+    @Test
+    void mergeRequiresNonNullCollection() {
+        assertThatThrownBy(() -> intervalMerger.merge(null))
+            .isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
+    void mergeReturnsEmptyListWhenPassedAnEmptyCollection() {
+        assertThat(intervalMerger.merge(emptySet()))
+            .isEmpty();
+    }
 
     @Test
     void mergeReturnsCombinesOverlappingIntervals() {
