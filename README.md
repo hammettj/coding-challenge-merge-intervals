@@ -22,5 +22,16 @@ The interval ```[25, 30]``` does not overlap with any other interval, so it is k
   * the length of an interval must not be zero or negative
     * thus `end` must be greater than `begin`
 
+## Building From Source
+### Requirements
+* JDK 17
+
+You don't necessarily need to install Maven as copy of the Maven Wrapper is distributed with this project
+
+To build the project you simply need to run the following command in the project directory.
+  ```shell
+  ./mvnw clean verify
+  ```
+
 ## Notes
   * To keep the final binary as small as possible, the use of external libraries were deliberately omitted 
