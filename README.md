@@ -23,7 +23,7 @@ The interval ```[25, 30]``` does not overlap with any other interval, so it is k
     * thus `end` must be greater than `begin`
 
 ### Solution
-First we need to sort the input list in ascending order by `begin` (we do also remove duplicates to be a faster).
+First we need to sort the input list in ascending order by `begin` (we do also remove duplicates to be a bit faster).
 This way we don't have to loop through the list twice as we know the previous interval's `begin` is always
 less than or equal to the current one's. The next step is to iterate over the sorted list after storing the first
 interval as the `current lowest interval`. Inside the loop we can then check if the current interval's `begin` is less
@@ -32,7 +32,7 @@ than or equal to the `current lowest interval`'s end, meaning they overlap.
 If they overlap we expand the `end` of the `current lowest interval` if necessary (if the current's `end` is greater
 than `current lowest interval`'s).
 
-If they do not overlap we add the `current lowest interval` to our result list and storing the current interval as our
+If they do not overlap we add the `current lowest interval` to our result list and store the current interval as our
 new `current lowest interval`.
 
 After iterating over all intervals we have to add the `current lowest interval` and return our merged list of intervals.
@@ -62,11 +62,17 @@ It's also possible to extract the executable to your host system by running
 docker cp $(docker create merge-intervals:latest):/app/merge-intervals .
 ```
 
+This way we can simply run the executable.
+
+```shell
+./merge-intervals "[25,30]" "[2,19]" "[14,23]" "[4,8]"
+```
+
 ### JVM Build 
 #### Requirements
 * JDK 17
 
-You don't necessarily need to install Maven as a copy of the Maven Wrapper is distributed with this project.
+You don't necessarily need to install Maven, as a copy of the Maven Wrapper is distributed with this project.
 
 To build the project you simply need to run the following command in the project directory.
   ```shell

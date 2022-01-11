@@ -24,6 +24,12 @@ class IntervalTest {
     }
 
     @Test
+    void ensureCorrectStringRepresentation() {
+        final Interval interval = new Interval(4, 7);
+        assertThat(interval).hasToString("[4,7]");
+    }
+
+    @Test
     void comparingIntervalsSortsAscendingByBeginAndEnd() {
         final Interval interval1 = new Interval(7, 11);
         final Interval interval2 = new Interval(1, 5);
