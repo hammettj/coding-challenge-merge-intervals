@@ -41,11 +41,18 @@ After iterating over all intervals we have to add the `current lowest interval` 
 ### Requirements
 * JDK 17
 
-You don't necessarily need to install Maven as copy of the Maven Wrapper is distributed with this project
+You don't necessarily need to install Maven as a copy of the Maven Wrapper is distributed with this project.
 
 To build the project you simply need to run the following command in the project directory.
   ```shell
   ./mvnw clean verify
+  ```
+
+## Running
+After building the project you can run the program by executing
+
+  ```shell
+  java -jar target/merge-intervals-1.0-SNAPSHOT.jar "[25,30]" "[2,19]" "[14,23]" "[4,8]"
   ```
 
 ## Performance
