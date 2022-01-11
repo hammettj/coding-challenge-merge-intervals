@@ -38,7 +38,26 @@ new `current lowest interval`.
 After iterating over all intervals we have to add the `current lowest interval` and return our merged list of intervals.
 
 ## Building From Source
-### Requirements
+### Native build (via docker) [recommended]
+#### Requirements
+* Docker
+
+Follow these steps to build a docker image. This will not just build the whole project inside a docker container but
+also create a docker image which can then be run. 
+
+```shell
+docker build -f Dockerfile.native -t merge-intervals:latest .
+```
+
+#### Running
+After you build the docker image you can run it with the following command
+
+```shell
+docker run --rm merge-intervals:latest "[25,30]" "[2,19]" "[14,23]" "[4,8]"
+```
+
+### JVM Build 
+#### Requirements
 * JDK 17
 
 You don't necessarily need to install Maven as a copy of the Maven Wrapper is distributed with this project.
@@ -48,7 +67,7 @@ To build the project you simply need to run the following command in the project
   ./mvnw clean verify
   ```
 
-## Running
+#### Running
 After building the project you can run the program by executing
 
   ```shell

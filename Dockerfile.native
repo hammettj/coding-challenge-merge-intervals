@@ -1,0 +1,11 @@
+FROM ghcr.io/graalvm/graalvm-ce:java17-21 AS build
+WORKDIR /source
+RUN gu install native-image
+COPY . .
+RUN ./mvnw -B clean verify
+RUN native-image --static -jar target/merge-intervals-*.jar merge-intervals
+
+FROM alpine:latest
+WORKDIR /app
+COPY --from=build /source/merge-intervals .
+ENTRYPOINT [ "./merge-intervals" ]
