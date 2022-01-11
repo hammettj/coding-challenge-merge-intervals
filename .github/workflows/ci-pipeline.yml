@@ -3,11 +3,19 @@ name: Build Pipeline
 on: [ workflow_dispatch, push ]
 
 jobs:
-  container:
+  jvm-build:
     runs-on: ubuntu-latest
     container: ghcr.io/graalvm/graalvm-ce:java17-21
     steps:
       - uses: actions/checkout@v2
       - run: |
           ./mvnw -B clean verify
-        name: run tests
+  native-build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/graalvm/graalvm-ce:java17-21
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          gu install native-image
+          ./mvnw -B clean verify
+          native-image --static -jar target/merge-intervals-*.jar merge-intervals
